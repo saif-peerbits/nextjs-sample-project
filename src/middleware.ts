@@ -1,11 +1,15 @@
-// middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// Middleware to protect routes
+/**
+ * middleware to protected routes
+ * @param request
+ * @returns
+ */
 export function middleware(request: NextRequest) {
   // List of protected routes
   const protectedRoutes = ["/dashboard"];
+  // List of public routes
   const publicRoutes = ["/"];
 
   // Get the pathname from the request URL
@@ -17,7 +21,7 @@ export function middleware(request: NextRequest) {
   // Check if the route is protected
   if (protectedRoutes.includes(pathname)) {
     if (!token) {
-      // Redirect to login page if no token is present
+      // Redirect to home page if no token is present
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
@@ -25,12 +29,12 @@ export function middleware(request: NextRequest) {
   // Check if the route is public
   if (publicRoutes.includes(pathname)) {
     if (token) {
-      // Redirect to dashboard page if  token is present
+      // Redirect to dashboard page if token is present
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
   }
 
-  // Allow request to proceed if the route is not protected or token is present
+  // Allow request to proceed if the route is not protected or public
   return NextResponse.next();
 }
 

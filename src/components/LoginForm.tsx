@@ -2,13 +2,13 @@
 import { loginSchema } from "@/schema/login";
 import { loginUser } from "@/services/login";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Box, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
-import { TextField, Typography, Box } from "@mui/material";
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import Cookies from "js-cookie";
 
 // Define the form values type based on the schema
 type FormValues = z.infer<typeof loginSchema>;
@@ -27,7 +27,6 @@ const LoginForm: React.FC = () => {
   const onSubmit = async (data: FormValues) => {
     try {
       const response = await loginUser(data.userName, data.password);
-      console.log("Login successful:", response.data);
 
       // Save the token as a cookie
       Cookies.set("token", response.data.token, { expires: 7 });
@@ -36,7 +35,6 @@ const LoginForm: React.FC = () => {
       router.push("/dashboard");
     } catch (error) {
       console.error("Login failed:", error);
-      // Handle login error (e.g., show error message)
     }
   };
 
@@ -53,7 +51,7 @@ const LoginForm: React.FC = () => {
       gap={3}
       margin={"auto"}
     >
-      <Typography variant="h4">Login </Typography>
+      <Typography variant="h4">Login</Typography>
 
       <Controller
         name="userName"
