@@ -1,6 +1,6 @@
 "use client";
 
-import { TProductType } from "@models/product";
+import { TProductType } from "@/models/product";
 import {
   Box,
   Button,
@@ -13,7 +13,7 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import { fetchProductDetailApi } from "@services/product.service";
+import { fetchProductDetailApi } from "@/services/product";
 import { useEffect, useState } from "react";
 
 const ProductReviewModal = ({

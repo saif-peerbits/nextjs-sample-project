@@ -1,4 +1,5 @@
-import { TProductType } from "@models/product";
+import { i18n } from "@/constant";
+import { TProductType } from "@/models/product";
 import {
   Button,
   Paper,
@@ -15,6 +16,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 
 const ProductListTable = ({
@@ -24,46 +26,48 @@ const ProductListTable = ({
   productList: TProductType[];
   onOpenModal: (product: TProductType) => void;
 }) => {
+  const t = useTranslations(i18n.FRONTENDTEST);
+
   const columns = useMemo<ColumnDef<TProductType>[]>(
     () => [
-      { accessorKey: "id", header: "ID", size: 60 },
-      { accessorKey: "title", header: "Title", size: 150, minSize: 150 },
+      { accessorKey: "id", header: t("ID"), size: 60 },
+      { accessorKey: "title", header: t("TITLE"), size: 150, minSize: 150 },
       {
         accessorKey: "description",
-        header: "Description",
+        header: t("DESCRIPTION"),
         size: 400,
         minSize: 400,
         maxSize: 500,
       },
-      { accessorKey: "category", header: "Category", size: 120 },
-      { accessorKey: "price", header: "Price", size: 100 },
-      { accessorKey: "discountPercentage", header: "Discount", size: 100 },
-      { accessorKey: "rating", header: "Rating", size: 80 },
-      { accessorKey: "stock", header: "Stock", size: 80 },
+      { accessorKey: "category", header: t("CATEGORY"), size: 120 },
+      { accessorKey: "price", header: t("PRICE"), size: 100 },
+      { accessorKey: "discountPercentage", header: t("DISCOUNT"), size: 100 },
+      { accessorKey: "rating", header: t("RATING"), size: 80 },
+      { accessorKey: "stock", header: t("STOCK"), size: 80 },
       {
         accessorKey: "brand",
-        header: "Brand",
+        header: t("BRAND"),
         cell: ({ row }) => (row?.original?.brand ? row?.original?.brand : "-"),
         size: 150,
         minSize: 150,
       },
       {
         id: "actions",
-        header: "Actions",
+        header: t("ACTIONS"),
         cell: ({ row }) => (
           <Button
             variant="contained"
             onClick={() => onOpenModal(row.original)}
             sx={{ textTransform: "none" }}
           >
-            View Reviews
+            {t("VIEW_REVIEWS")}
           </Button>
         ),
         size: 150,
         minSize: 150,
       },
     ],
-    [onOpenModal] // Dependency array, only re-create columns if onOpenModal changes
+    [onOpenModal, t] // Dependency array, only re-create columns if onOpenModal changes
   );
 
   const table = useReactTable({

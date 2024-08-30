@@ -1,6 +1,6 @@
 "use client";
-import { loginSchema } from "@schema/login.schema";
-import { loginApi } from "@services/login.service";
+import { createLoginSchema } from "@/schema/login.schema";
+import { loginApi } from "@/services/login";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, CircularProgress, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -9,24 +9,26 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import { errorToast } from "@config/toast.config";
-
-// Define the form values type based on the schema
-type FormValues = z.infer<typeof loginSchema>;
+import { errorToast } from "@/config/toast.config";
+import { i18n } from "@/constant";
+import { useTranslations } from "next-intl";
 
 const LoginForm: React.FC = () => {
   const router = useRouter();
+  const t = useTranslations(i18n.FRONTENDTEST);
+  const loginSchema = createLoginSchema(t);
+
   const [loading, setLoading] = useState(false);
 
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (data: FormValues) => {
+  const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     setLoading(true);
     loginApi(data.userName, data.password)
       ?.then((response) => {
@@ -66,7 +68,7 @@ const LoginForm: React.FC = () => {
         render={({ field }) => (
           <TextField
             {...field}
-            label="Username"
+            label={t("USERNAME")}
             variant="standard"
             autoComplete="new-password"
             error={!!errors.userName}
@@ -88,7 +90,7 @@ const LoginForm: React.FC = () => {
         render={({ field }) => (
           <TextField
             {...field}
-            label="Password"
+            label={t("PASSWORD")}
             type="password"
             variant="standard"
             autoComplete="new-password"
@@ -111,6 +113,7 @@ const LoginForm: React.FC = () => {
         fullWidth
         disabled={loading}
         sx={{ textTransform: "none", display: "flex", gap: 2 }}
+        data-testid="test-login-submit-button"
       >
         Login
         {loading && (

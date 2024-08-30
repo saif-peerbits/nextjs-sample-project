@@ -1,7 +1,7 @@
 "use client";
-import ProductListTable from "@components/products/ProductListTable";
-import ProductReviewModal from "@components/products/ProductReviewModal";
-import { TProductType } from "@models/product";
+import ProductListTable from "@/components/products/ProductListTable";
+import ProductReviewModal from "@/components/products/ProductReviewModal";
+import { TProductType } from "@/models/product";
 import { useState } from "react";
 
 const ProductList = ({ productList }: { productList: TProductType[] }) => {

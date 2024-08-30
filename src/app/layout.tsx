@@ -1,9 +1,10 @@
-import "@app/globals.css";
-import "react-toastify/dist/ReactToastify.css";
-import theme from "@config/theme.config";
+import "@/app/globals.css";
+import theme from "@/config/theme.config";
 import { ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
@@ -11,18 +12,23 @@ export const metadata: Metadata = {
   description: "Front-End Test",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <ToastContainer />
-            {children}
+            <NextIntlClientProvider messages={messages}>
+              <ToastContainer />
+              {children}
+            </NextIntlClientProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
