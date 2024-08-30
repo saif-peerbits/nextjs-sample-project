@@ -1,9 +1,11 @@
 import Table from "@/components/Table";
-import { fetchProductsList } from "@/services/product.service";
+import { fetchProductsListApi } from "@/services/product.service";
 
 const Product = async () => {
-  const data = await fetchProductsList();
-  return <Table data={data} />;
+
+  const data = await fetchProductsListApi();
+
+  return <Table data={data?.data?.products} />;
 };
 
 export default Product;

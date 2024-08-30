@@ -1,14 +1,22 @@
 import axiosInstance from "@/config/axios.config";
+import { TApiResponse } from "@/models/axios";
+import { TProductType } from "@/models/product";
 
-const fetchProductsList = async () => {
-  try {
-    const response = await axiosInstance.get("/products");
+/**
+ * fetch product list api
+ * @returns 
+ */
+const fetchProductsListApi = (): TApiResponse<{ products: TProductType[] }> => {
+  return axiosInstance.get("/products");
+}
 
-    return response.data.products;
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    return [];
-  }
-};
+/**
+ * fetch product detail api
+ * @param productId 
+ * @returns 
+ */
+const fetchProductDetailApi = (productId: number): TApiResponse<TProductType> => {
+  return axiosInstance.get(`/products/${productId}`);
+}
 
-export { fetchProductsList };
+export { fetchProductDetailApi, fetchProductsListApi };
