@@ -1,5 +1,5 @@
 
-import LoginForm from "@components/auth/LoginForm";
+import LoginForm from "@/components/auth/LoginForm";
 import { loginApi } from "@services/login.service";
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
@@ -7,8 +7,8 @@ import Cookies from "js-cookie";
 import { act } from "react";
 
 
-jest.mock('@/services/login', () => ({
-  loginUser: jest.fn(),
+jest.mock('@services/login.service', () => ({
+  loginApi: jest.fn(),
 }));
 
 jest.mock('js-cookie', () => ({
