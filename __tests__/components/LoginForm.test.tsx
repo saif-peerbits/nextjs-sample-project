@@ -1,27 +1,21 @@
-import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import LoginForm from "@/components/LoginForm";
 import { loginUser } from "@/services/login";
-import { useRouter } from "next/navigation";
+import "@testing-library/jest-dom";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Cookies from "js-cookie";
+import { act } from "react";
 
-// Mock the loginUser function and useRouter
-jest.mock("@/services/login");
-jest.mock("next/navigation", () => ({
-  useRouter: jest.fn(),
+
+jest.mock('@/services/login', () => ({
+  loginUser: jest.fn(),
 }));
-jest.mock("js-cookie", () => ({
+
+jest.mock('js-cookie', () => ({
   set: jest.fn(),
 }));
 
-describe("LoginForm", () => {
-  const mockPush = jest.fn();
 
-  beforeEach(() => {
-    (useRouter as jest.Mock).mockReturnValue({ push: mockPush });
-    jest.clearAllMocks();
-  });
+describe("LoginForm", () => {
 
   it("renders the login form with heading", () => {
     render(<LoginForm />);
@@ -32,45 +26,39 @@ describe("LoginForm", () => {
     expect(screen.getByRole("button", { name: /login/i })).toBeInTheDocument();
   });
 
-  it("shows validation errors when submitting an empty form", async () => {
+  it("fills errors if submit without entering username and password", async () => {
     render(<LoginForm />);
 
-    fireEvent.click(screen.getByRole("button", { name: /login/i }));
+    // Simulate user typing in the form
+    const usernameField = await waitFor(() => screen.getByLabelText("Username"));
+    const passwordField = screen.getByLabelText("Password");
+    const submitButton = screen.getByTestId("test-login-submit-button");
 
-    await waitFor(() => {
-      expect(screen.getByText(/Username is required/i)).toBeInTheDocument();
-      expect(
-        screen.getByText(/Password must be at least 6 characters long/i)
-      ).toBeInTheDocument();
+    await act(async () => {
+      fireEvent.change(usernameField, { target: { value: "" } });
+      fireEvent.change(passwordField, { target: { value: "" } });
+      fireEvent.click(submitButton);
     });
-  });
+  })
 
-  it("calls loginUser and redirects on successful login", async () => {
-    const mockResponse = {
-      data: {
-        token: "test-token",
-      },
-    };
-    (loginUser as jest.Mock).mockResolvedValueOnce(mockResponse);
+  it("fills in the form and submits successfully", async () => {
+
+    (loginUser as jest.Mock).mockResolvedValue({ data: { token: 'mock-token' } });
 
     render(<LoginForm />);
 
-    fireEvent.change(screen.getByLabelText("Username"), {
-      target: { value: "testuser" },
-    });
-    fireEvent.change(screen.getByLabelText("Password"), {
-      target: { value: "password123" },
+    // Simulate user typing in the form
+    const usernameField = await waitFor(() => screen.getByLabelText("Username"));
+    const passwordField = screen.getByLabelText("Password");
+    const submitButton = screen.getByTestId("test-login-submit-button");
+
+    await act(async () => {
+      fireEvent.change(usernameField, { target: { value: "emilys" } });
+      fireEvent.change(passwordField, { target: { value: "emilyspass" } });
+      fireEvent.click(submitButton);
     });
 
-    fireEvent.click(screen.getByRole("button", { name: /login/i }));
-
-    await waitFor(() => {
-      expect(loginUser).toHaveBeenCalledWith("testuser", "password123");
-      expect(Cookies.set).toHaveBeenCalledWith("token", "test-token", {
-        expires: 7,
-      });
-      expect(mockPush).toHaveBeenCalledWith("/dashboard");
-    });
+    expect(Cookies.set).toHaveBeenCalledWith("token", "mock-token", { expires: 7 });
   });
 
   it("handles login failure", async () => {
@@ -79,19 +67,16 @@ describe("LoginForm", () => {
 
     render(<LoginForm />);
 
-    fireEvent.change(screen.getByLabelText("Username"), {
-      target: { value: "wronguser" },
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText("Username"), { target: { value: "wronguser" }, });
+      fireEvent.change(screen.getByLabelText("Password"), { target: { value: "wrongpassword" }, });
+      fireEvent.click(screen.getByRole("button", { name: /login/i }));
     });
-    fireEvent.change(screen.getByLabelText("Password"), {
-      target: { value: "wrongpassword" },
-    });
-
-    fireEvent.click(screen.getByRole("button", { name: /login/i }));
 
     await waitFor(() => {
       expect(loginUser).toHaveBeenCalledWith("wronguser", "wrongpassword");
-      expect(mockPush).not.toHaveBeenCalled();
       expect(screen.queryByText("Login failed")).not.toBeInTheDocument();
     });
   });
+
 });

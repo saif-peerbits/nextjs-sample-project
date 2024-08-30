@@ -104,6 +104,7 @@ const LoginForm: React.FC = () => {
         color="primary"
         fullWidth
         sx={{ textTransform: "none" }}
+        data-testid="test-login-submit-button"
       >
         Login
       </Button>
