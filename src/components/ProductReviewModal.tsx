@@ -1,4 +1,5 @@
-import axiosInstance from "@/lib/axiosConfig";
+import axiosInstance from "@/config/axios.config";
+import { PRODUCT_BASE_URI } from "@/endpoints/endpoints";
 import { TProductType } from "@/types/product";
 import {
   Box,
@@ -35,7 +36,7 @@ const ProductReviewModal = ({
   const fetchProductDetails = async (productId: number) => {
     setLoading(true);
     axiosInstance
-      .get(`/products/${productId}`)
+      .get(`${PRODUCT_BASE_URI}/${productId}`)
       ?.then((response) => {
         setProduct(response?.data);
       })

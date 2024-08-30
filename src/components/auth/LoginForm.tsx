@@ -31,8 +31,8 @@ const LoginForm: React.FC = () => {
       // Save the token as a cookie
       Cookies.set("token", response.data.token, { expires: 7 });
 
-      // Redirect to dashboard
-      router.push("/dashboard");
+      // Redirect to product
+      router.push("/product");
     } catch (error) {
       console.error("Login failed:", error);
     }

@@ -1,4 +1,5 @@
 import axiosInstance from "@/config/axios.config";
+import { AUTH_BASE_URI } from "@/endpoints/endpoints";
 
 /**
  * Login Api
@@ -7,7 +8,7 @@ import axiosInstance from "@/config/axios.config";
  * @returns Promise<AxiosResponse>
  */
 const loginApi = (username: string, password: string) => {
-  return axiosInstance.post("/auth/login", { username, password });
+  return axiosInstance.post(AUTH_BASE_URI.login, { username, password });
 };
 
 export { loginApi };

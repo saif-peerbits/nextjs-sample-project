@@ -1,4 +1,5 @@
 "use client";
+import ProductReviewModal from "@/components/ProductReviewModal";
 import { TProductType } from "@/types/product";
 import {
   Button,
@@ -17,7 +18,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useState } from "react";
-import ProductReviewModal from "./ProductReviewModal";
 
 const MyTable = ({ data }: { data: TProductType[] }) => {
   const [productReviewModal, setProductReviewModal] = useState({
@@ -86,7 +86,10 @@ const MyTable = ({ data }: { data: TProductType[] }) => {
 
   return (
     <>
-      <TableContainer component={Paper} sx={{ maxHeight: "100vh" }}>
+      <TableContainer
+        component={Paper}
+        sx={{ maxHeight: "100%", overflowY: "auto" }}
+      >
         <Table stickyHeader>
           <TableHead>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -97,10 +100,10 @@ const MyTable = ({ data }: { data: TProductType[] }) => {
                     sx={{
                       width: `${header.column.getSize()}px`,
                       minWidth: `${
-                        header.column.columnDef.minSize ||
+                        header.column.columnDef.minSize ??
                         header.column.getSize()
                       }px`,
-                      maxWidth: `${header.column.columnDef.maxSize || "auto"}`,
+                      maxWidth: `${header.column.columnDef.maxSize ?? "auto"}`,
                     }}
                   >
                     {flexRender(
@@ -121,9 +124,9 @@ const MyTable = ({ data }: { data: TProductType[] }) => {
                     sx={{
                       width: `${cell.column.getSize()}px`,
                       minWidth: `${
-                        cell.column.columnDef.minSize || cell.column.getSize()
+                        cell.column.columnDef.minSize ?? cell.column.getSize()
                       }px`,
-                      maxWidth: `${cell.column.columnDef.maxSize || "auto"}`,
+                      maxWidth: `${cell.column.columnDef.maxSize ?? "auto"}`,
                     }}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
