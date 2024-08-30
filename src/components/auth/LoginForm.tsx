@@ -113,6 +113,7 @@ const LoginForm: React.FC = () => {
         fullWidth
         disabled={loading}
         sx={{ textTransform: "none", display: "flex", gap: 2 }}
+        data-testid="test-login-submit-button"
       >
         Login
         {loading && (
