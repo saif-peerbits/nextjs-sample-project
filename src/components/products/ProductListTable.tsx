@@ -1,5 +1,4 @@
-import { TProductType } from "@/models/product";
-import { i18n } from "@constant";
+import { TProductType } from "@models/product";
 import {
   Button,
   Paper,
@@ -16,16 +15,16 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 
 const ProductListTable = ({
-  data,
+  productList,
   onOpenModal,
 }: {
-  data: TProductType[];
+  productList: TProductType[];
   onOpenModal: (product: TProductType) => void;
 }) => {
+
   const t = useTranslations(i18n.FRONTENDTEST);
 
   const columns = useMemo<ColumnDef<TProductType>[]>(
@@ -71,7 +70,7 @@ const ProductListTable = ({
   );
 
   const table = useReactTable({
-    data,
+    data: productList,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });

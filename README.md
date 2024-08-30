@@ -1,11 +1,27 @@
 # Frontend Assessment
 
-## Setup
+## Table of Contents
 
-1. Clone the repository
-2. Run `npm install`
-3. Run `npm run dev` to start the development server
+- [Installation](#installation)
 
-## Testing
+# Installation
 
-Run `npm run test` to execute the Jest tests
+### Clone the repository
+
+git clone https://github.com/peer-development/frontend-test-task.git
+
+### install dependencies
+
+`npm install`
+
+### serve in local
+
+`npm run dev` (run on port http://localhost:3000)
+
+### build for production with minification
+
+`npm run build`
+
+### test
+
+`npm run test`

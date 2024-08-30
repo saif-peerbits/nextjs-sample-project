@@ -5,6 +5,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "Front-End Test",
@@ -26,6 +27,7 @@ export default async function RootLayout({
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <NextIntlClientProvider messages={messages}>
+              <ToastContainer />
               {children}
             </NextIntlClientProvider>
           </ThemeProvider>
