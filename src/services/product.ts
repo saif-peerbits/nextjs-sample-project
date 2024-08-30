@@ -1,6 +1,6 @@
 import axiosInstance from "@/lib/axiosConfig";
 
-export const fetchProducts = async () => {
+const fetchProductsList = async () => {
   try {
     const response = await axiosInstance.get("/products");
 
@@ -10,3 +10,5 @@ export const fetchProducts = async () => {
     return [];
   }
 };
+
+export { fetchProductsList };

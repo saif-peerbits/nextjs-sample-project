@@ -17,23 +17,35 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useState } from "react";
+import ProductReviewModal from "./ProductReviewModal";
 
 const MyTable = ({ data }: { data: TProductType[] }) => {
-  const [open, setOpen] = useState(false);
+  const [productReviewModal, setProductReviewModal] = useState({
+    isShow: false,
+    productId: 0,
+  });
 
   const columns: ColumnDef<TProductType>[] = [
-    { accessorKey: "id", header: "ID" },
-    { accessorKey: "title", header: "Title" },
-    { accessorKey: "description", header: "Description" },
-    { accessorKey: "category", header: "Category" },
-    { accessorKey: "price", header: "Price" },
-    { accessorKey: "discountPercentage", header: "Discount" },
-    { accessorKey: "rating", header: "Rating" },
-    { accessorKey: "stock", header: "Stock" },
+    { accessorKey: "id", header: "ID", size: 60 },
+    { accessorKey: "title", header: "Title", size: 150, minSize: 150 },
+    {
+      accessorKey: "description",
+      header: "Description",
+      size: 400,
+      minSize: 400,
+      maxSize: 500,
+    },
+    { accessorKey: "category", header: "Category", size: 120 },
+    { accessorKey: "price", header: "Price", size: 100 },
+    { accessorKey: "discountPercentage", header: "Discount", size: 100 },
+    { accessorKey: "rating", header: "Rating", size: 80 },
+    { accessorKey: "stock", header: "Stock", size: 80 },
     {
       accessorKey: "brand",
       header: "Brand",
       cell: ({ row }) => (row?.original?.brand ? row?.original?.brand : "-"),
+      size: 150,
+      minSize: 150,
     },
     {
       id: "actions",
@@ -41,22 +53,29 @@ const MyTable = ({ data }: { data: TProductType[] }) => {
       cell: ({ row }) => (
         <Button
           variant="contained"
-          onClick={() => handleOpen(row.original)}
+          onClick={() => handleOpenModal(row.original)}
           sx={{ textTransform: "none" }}
         >
           View Reviews
         </Button>
       ),
+      size: 150,
+      minSize: 150,
     },
   ];
 
-  const handleOpen = (product: TProductType) => {
-    // const res = await fetch(`https://dummyjson.com/products/${product.id}`);
-    // const data = await res.json();
-    // setSelectedProduct(data);
-    // setOpen(true);
+  const handleOpenModal = (product: TProductType) => {
+    setProductReviewModal({
+      isShow: true,
+      productId: product?.id,
+    });
+  };
 
-    console.log(product);
+  const handleCloseModal = () => {
+    setProductReviewModal({
+      isShow: false,
+      productId: 0,
+    });
   };
 
   const table = useReactTable({
@@ -66,35 +85,64 @@ const MyTable = ({ data }: { data: TProductType[] }) => {
   });
 
   return (
-    <TableContainer component={Paper} sx={{ maxHeight: "100vh" }}>
-      <Table stickyHeader>
-        <TableHead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <TableCell key={header.id}>
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableHead>
-        <TableBody>
-          {table.getRowModel().rows.map((row) => (
-            <TableRow key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <TableContainer component={Paper} sx={{ maxHeight: "100vh" }}>
+        <Table stickyHeader>
+          <TableHead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableCell
+                    key={header.id}
+                    sx={{
+                      width: `${header.column.getSize()}px`,
+                      minWidth: `${
+                        header.column.columnDef.minSize ||
+                        header.column.getSize()
+                      }px`,
+                      maxWidth: `${header.column.columnDef.maxSize || "auto"}`,
+                    }}
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableHead>
+          <TableBody>
+            {table.getRowModel().rows.map((row) => (
+              <TableRow key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell
+                    key={cell.id}
+                    sx={{
+                      width: `${cell.column.getSize()}px`,
+                      minWidth: `${
+                        cell.column.columnDef.minSize || cell.column.getSize()
+                      }px`,
+                      maxWidth: `${cell.column.columnDef.maxSize || "auto"}`,
+                    }}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      {productReviewModal?.isShow && (
+        <ProductReviewModal
+          open={productReviewModal?.isShow}
+          handleClose={handleCloseModal}
+          productId={productReviewModal?.productId}
+        />
+      )}
+    </>
   );
 };
 
