@@ -18,10 +18,10 @@ import {
 import { useMemo } from "react";
 
 const ProductListTable = ({
-  data,
+  productList,
   onOpenModal,
 }: {
-  data: TProductType[];
+  productList: TProductType[];
   onOpenModal: (product: TProductType) => void;
 }) => {
   const columns = useMemo<ColumnDef<TProductType>[]>(
@@ -67,7 +67,7 @@ const ProductListTable = ({
   );
 
   const table = useReactTable({
-    data,
+    data: productList,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });

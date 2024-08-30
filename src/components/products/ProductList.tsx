@@ -4,7 +4,7 @@ import ProductReviewModal from "@/components/products/ProductReviewModal";
 import { TProductType } from "@/models/product";
 import { useState } from "react";
 
-const ParentComponent = ({ data }: { data: TProductType[] }) => {
+const ProductList = ({ productList }: { productList: TProductType[] }) => {
   const [productReviewModal, setProductReviewModal] = useState({
     isShow: false,
     productId: 0,
@@ -26,7 +26,10 @@ const ParentComponent = ({ data }: { data: TProductType[] }) => {
 
   return (
     <>
-      <ProductListTable data={data} onOpenModal={handleOpenModal} />
+      <ProductListTable
+        productList={productList}
+        onOpenModal={handleOpenModal}
+      />
 
       {productReviewModal?.isShow && (
         <ProductReviewModal
@@ -39,4 +42,4 @@ const ParentComponent = ({ data }: { data: TProductType[] }) => {
   );
 };
 
-export default ParentComponent;
+export default ProductList;
