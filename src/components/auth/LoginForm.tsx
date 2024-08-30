@@ -1,10 +1,12 @@
 "use client";
-import { loginSchema } from "@schema/login.schema";
-import { loginApi } from "@services/login.service";
+import { i18n } from "@constant";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
+import { loginSchema } from "@schema/login.schema";
+import { loginApi } from "@services/login.service";
 import Cookies from "js-cookie";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -15,6 +17,7 @@ type FormValues = z.infer<typeof loginSchema>;
 
 const LoginForm: React.FC = () => {
   const router = useRouter();
+  const t = useTranslations(i18n.FRONTENDTEST);
 
   const {
     handleSubmit,
@@ -60,7 +63,7 @@ const LoginForm: React.FC = () => {
         render={({ field }) => (
           <TextField
             {...field}
-            label="Username"
+            label={t("USERNAME")}
             variant="standard"
             autoComplete="new-password"
             error={!!errors.userName}
@@ -82,7 +85,7 @@ const LoginForm: React.FC = () => {
         render={({ field }) => (
           <TextField
             {...field}
-            label="Password"
+            label={t("PASSWORD")}
             type="password"
             variant="standard"
             autoComplete="new-password"

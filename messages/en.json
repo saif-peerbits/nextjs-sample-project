@@ -1,0 +1,19 @@
+{
+	"frontEndTest": {
+		"USERNAME_IS_REQUIRED": "Username is required.",
+		"PASSWORD_MUST_BE_AT_LEAST_SIX_CHARACTERS_LONG": "Password must be at least 6 characters long.",
+		"USERNAME": "Username",
+		"PASSWORD": "Password",
+		"ID": "ID",
+		"TITLE": "Title",
+		"DESCRIPTION": "Description",
+		"CATEGORY": "Category",
+		"PRICE": "Price",
+		"DISCOUNT": "Discount",
+		"RATING": "Rating",
+		"STOCK": "Stock",
+		"BRAND": "Brand",
+		"ACTIONS": "Actions",
+		"VIEW_REVIEWS": "View Reviews"
+	}
+}

@@ -5,6 +5,7 @@ import { TProductType } from "@/models/product";
 import { useState } from "react";
 
 const ParentComponent = ({ data }: { data: TProductType[] }) => {
+
   const [productReviewModal, setProductReviewModal] = useState({
     isShow: false,
     productId: 0,
