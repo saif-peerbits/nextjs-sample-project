@@ -3,7 +3,7 @@ import {
   Search,
   SearchIconWrapper,
   StyledInputBase,
-} from "@/components/CustomSearch";
+} from "@components/layout/CustomSearch";
 import { Search as SearchIcon } from "@mui/icons-material";
 import {
   AppBar,

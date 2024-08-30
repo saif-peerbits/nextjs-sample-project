@@ -1,4 +1,4 @@
-import { TProductType } from "@/models/product";
+import { TProductType } from "@models/product";
 import {
   Button,
   Paper,
