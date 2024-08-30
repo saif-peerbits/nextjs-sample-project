@@ -1,6 +1,6 @@
 "use client";
-import { loginSchema } from "@/schema/login.schema";
-import { loginApi } from "@/services/login.service";
+import { loginSchema } from "@schema/login.schema";
+import { loginApi } from "@services/login.service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";

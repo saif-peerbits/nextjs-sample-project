@@ -1,5 +1,5 @@
-import Table from "@/components/Table";
-import { fetchProductsListApi } from "@/services/product.service";
+import Table from "@components/Table";
+import { fetchProductsListApi } from "@services/product.service";
 
 const Product = async () => {
 
