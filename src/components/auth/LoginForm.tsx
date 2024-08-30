@@ -1,6 +1,6 @@
 "use client";
-import { createLoginSchema } from "@schema/login.schema";
-import { loginApi } from "@services/login.service";
+import { createLoginSchema } from "@/schema/login.schema";
+import { loginApi } from "@/services/login";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, CircularProgress, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -9,8 +9,8 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import { errorToast } from "@config/toast.config";
-import { i18n } from "@constant";
+import { errorToast } from "@/config/toast.config";
+import { i18n } from "@/constant";
 import { useTranslations } from "next-intl";
 
 const LoginForm: React.FC = () => {

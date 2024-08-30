@@ -1,7 +1,7 @@
-import axiosInstance from "@config/axios.config";
-import { PRODUCT_BASE_URI } from "@endpoints/endpoints";
-import { TApiResponse } from "@models/axios";
-import { TProductType } from "@models/product";
+import axiosInstance from "@/config/axios.config";
+import { PRODUCT_BASE_URI } from "@/endpoints/endpoints";
+import { TApiResponse } from "@/models/axios";
+import { TProductType } from "@/models/product";
 
 /**
  * fetch product list api

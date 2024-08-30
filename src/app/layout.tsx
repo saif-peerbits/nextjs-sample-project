@@ -1,5 +1,5 @@
-import "@app/globals.css";
-import theme from "@config/theme.config";
+import "@/app/globals.css";
+import theme from "@/config/theme.config";
 import { ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import type { Metadata } from "next";
@@ -17,7 +17,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const locale = await getLocale();
   const messages = await getMessages();
 

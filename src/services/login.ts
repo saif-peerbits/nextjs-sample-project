@@ -1,5 +1,5 @@
-import axiosInstance from "@config/axios.config";
-import { AUTH_BASE_URI } from "@endpoints/endpoints";
+import axiosInstance from "@/config/axios.config";
+import { AUTH_BASE_URI } from "@/endpoints/endpoints";
 
 /**
  * Login Api

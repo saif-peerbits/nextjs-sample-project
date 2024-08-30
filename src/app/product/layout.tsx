@@ -1,5 +1,5 @@
 "use client";
-import Header from "@components/layout/Header";
+import Header from "@/components/layout/Header";
 import { Box } from "@mui/material";
 import { ReactNode } from "react";
 

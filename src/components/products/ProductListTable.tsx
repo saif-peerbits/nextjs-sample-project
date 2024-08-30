@@ -1,5 +1,5 @@
-import { i18n } from "@constant";
-import { TProductType } from "@models/product";
+import { i18n } from "@/constant";
+import { TProductType } from "@/models/product";
 import {
   Button,
   Paper,
@@ -26,7 +26,6 @@ const ProductListTable = ({
   productList: TProductType[];
   onOpenModal: (product: TProductType) => void;
 }) => {
-
   const t = useTranslations(i18n.FRONTENDTEST);
 
   const columns = useMemo<ColumnDef<TProductType>[]>(
@@ -91,8 +90,9 @@ const ProductListTable = ({
                   key={header.id}
                   sx={{
                     width: `${header.column.getSize()}px`,
-                    minWidth: `${header.column.columnDef.minSize ?? header.column.getSize()
-                      }px`,
+                    minWidth: `${
+                      header.column.columnDef.minSize ?? header.column.getSize()
+                    }px`,
                     maxWidth: `${header.column.columnDef.maxSize ?? "auto"}`,
                   }}
                 >
@@ -113,8 +113,9 @@ const ProductListTable = ({
                   key={cell.id}
                   sx={{
                     width: `${cell.column.getSize()}px`,
-                    minWidth: `${cell.column.columnDef.minSize ?? cell.column.getSize()
-                      }px`,
+                    minWidth: `${
+                      cell.column.columnDef.minSize ?? cell.column.getSize()
+                    }px`,
                     maxWidth: `${cell.column.columnDef.maxSize ?? "auto"}`,
                   }}
                 >
