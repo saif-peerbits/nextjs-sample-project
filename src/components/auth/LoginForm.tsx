@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
+import { errorToast } from "@config/toast.config";
 
 // Define the form values type based on the schema
 type FormValues = z.infer<typeof loginSchema>;
@@ -34,6 +35,9 @@ const LoginForm: React.FC = () => {
 
         // Redirect to product
         router.push("/product");
+      })
+      .catch((error) => {
+        errorToast(error?.response?.data?.message);
       })
       .finally(() => {
         setLoading(false);
