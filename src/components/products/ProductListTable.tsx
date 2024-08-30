@@ -1,3 +1,4 @@
+import { i18n } from "@constant";
 import { TProductType } from "@models/product";
 import {
   Button,
@@ -15,6 +16,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 
 const ProductListTable = ({
