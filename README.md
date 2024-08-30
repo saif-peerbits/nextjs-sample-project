@@ -8,7 +8,7 @@
 
 ### Clone the repository
 
-git clone https://github.com/peer-development/frontend-test-task.git
+git clone https://github.com/saif-peerbits/nextjs-sample-project.git
 
 ### install dependencies
 
@@ -25,3 +25,7 @@ git clone https://github.com/peer-development/frontend-test-task.git
 ### test
 
 `npm run test`
+
+### Deployed setup
+
+http://65.2.150.150:3000
