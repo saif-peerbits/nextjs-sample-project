@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import theme from "@/theme/theme";
+import theme from "@/config/theme.config";
 import { ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import type { Metadata } from "next";

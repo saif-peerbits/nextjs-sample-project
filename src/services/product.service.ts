@@ -1,4 +1,4 @@
-import axiosInstance from "@/lib/axiosConfig";
+import axiosInstance from "@/config/axios.config";
 
 const fetchProductsList = async () => {
   try {
