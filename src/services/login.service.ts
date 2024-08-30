@@ -1,12 +1,13 @@
-import axiosInstance from "@/lib/axiosConfig";
+import axiosInstance from "@/config/axios.config";
+
 /**
  * Login Api
  * @param username String
  * @param password String
  * @returns Promise<AxiosResponse>
  */
-const loginUser = (username: string, password: string) => {
+const loginApi = (username: string, password: string) => {
   return axiosInstance.post("/auth/login", { username, password });
 };
 
-export { loginUser };
+export { loginApi };

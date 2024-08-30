@@ -1,22 +1,9 @@
 'use client'
 import styled from '@emotion/styled';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import MenuIcon from '@mui/icons-material/Menu';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import SearchIcon from '@mui/icons-material/Search';
-import AppBar from '@mui/material/AppBar';
-import Badge from '@mui/material/Badge';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import { Menu, MenuItem, Toolbar, Typography, AppBar, Badge, Box, IconButton, InputBase } from '@mui/material';
+import { AccountCircle, Search as SearchIcon, Menu as MenuIcon, MoreVert as MoreIcon, Notifications as NotificationsIcon } from '@mui/icons-material';
 import { alpha, Theme } from '@mui/material/styles';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import * as React from 'react';
+import { MouseEvent, ReactNode, useState } from 'react';
 
 const StyledInputBase = styled(InputBase)<{ theme?: Theme }>((props) => ({
     color: 'inherit',
@@ -58,11 +45,11 @@ const Search = styled('div')<{ theme?: Theme }>((props) => ({
 }));
 
 const ProductLayout = ({ children }: Readonly<{
-    children: React.ReactNode;
+    children: ReactNode;
 }>) => {
 
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
-        React.useState<null | HTMLElement>(null);
+        useState<null | HTMLElement>(null);
 
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -70,7 +57,7 @@ const ProductLayout = ({ children }: Readonly<{
         setMobileMoreAnchorEl(null);
     };
 
-    const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    const handleMobileMenuOpen = (event: MouseEvent<HTMLElement>) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
