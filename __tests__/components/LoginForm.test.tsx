@@ -1,5 +1,6 @@
-import LoginForm from "@/components/LoginForm";
-import { loginUser } from "@/services/login";
+
+import LoginForm from "@components/auth/LoginForm";
+import { loginApi } from "@services/login.service";
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Cookies from "js-cookie";
@@ -43,7 +44,7 @@ describe("LoginForm", () => {
 
   it("fills in the form and submits successfully", async () => {
 
-    (loginUser as jest.Mock).mockResolvedValue({ data: { token: 'mock-token' } });
+    (loginApi as jest.Mock).mockResolvedValue({ data: { token: 'mock-token' } });
 
     render(<LoginForm />);
 
@@ -63,7 +64,7 @@ describe("LoginForm", () => {
 
   it("handles login failure", async () => {
     const mockError = new Error("Login failed");
-    (loginUser as jest.Mock).mockRejectedValueOnce(mockError);
+    (loginApi as jest.Mock).mockRejectedValueOnce(mockError);
 
     render(<LoginForm />);
 
@@ -74,7 +75,7 @@ describe("LoginForm", () => {
     });
 
     await waitFor(() => {
-      expect(loginUser).toHaveBeenCalledWith("wronguser", "wrongpassword");
+      expect(loginApi).toHaveBeenCalledWith("wronguser", "wrongpassword");
       expect(screen.queryByText("Login failed")).not.toBeInTheDocument();
     });
   });

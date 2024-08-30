@@ -1,4 +1,4 @@
-import { jest } from "@jest/globals";
+import './src/jest/globals';
 import "@testing-library/jest-dom";
 
 const mockPush = jest.fn();
