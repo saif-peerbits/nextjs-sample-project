@@ -1,4 +1,4 @@
-type Review = {
+type TReview = {
   rating: number;
   comment: string;
   date: string; // ISO 8601 date string
@@ -6,13 +6,13 @@ type Review = {
   reviewerEmail: string;
 };
 
-type Dimensions = {
+type TDimensions = {
   width: number;
   height: number;
   depth: number;
 };
 
-type Meta = {
+type TMeta = {
   createdAt: string; // ISO 8601 date string
   updatedAt: string; // ISO 8601 date string
   barcode: string;
@@ -32,14 +32,14 @@ type TProductType = {
   brand: string;
   sku: string;
   weight: number;
-  dimensions: Dimensions;
+  dimensions: TDimensions;
   warrantyInformation: string;
   shippingInformation: string;
   availabilityStatus: string;
-  reviews: Review[];
+  reviews: TReview[];
   returnPolicy: string;
   minimumOrderQuantity: number;
-  meta: Meta;
+  meta: TMeta;
   images: string[];
   thumbnail: string;
 };
