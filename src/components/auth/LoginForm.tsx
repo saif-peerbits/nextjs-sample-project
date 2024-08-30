@@ -1,6 +1,6 @@
 "use client";
-import { loginSchema } from "@/schema/login";
-import { loginUser } from "@/services/login";
+import { loginSchema } from "@schema/login.schema";
+import { loginApi } from "@services/login.service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -26,13 +26,13 @@ const LoginForm: React.FC = () => {
 
   const onSubmit = async (data: FormValues) => {
     try {
-      const response = await loginUser(data.userName, data.password);
+      const response = await loginApi(data.userName, data.password);
 
       // Save the token as a cookie
       Cookies.set("token", response.data.token, { expires: 7 });
 
-      // Redirect to dashboard
-      router.push("/dashboard");
+      // Redirect to product
+      router.push("/product");
     } catch (error) {
       console.error("Login failed:", error);
     }
