@@ -1,4 +1,4 @@
-import axiosInstance from "@/config/axios.config";
+"use client";
 import { TProductType } from "@/models/product";
 import { fetchProductDetailApi } from "@/services/product.service";
 import {
