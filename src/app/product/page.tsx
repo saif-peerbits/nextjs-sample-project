@@ -1,9 +1,9 @@
-import Table from "@/components/Table";
-import { fetchProducts } from "@/services/product";
+import ProductList from "@components/products/ProductList";
+import { fetchProductsListApi } from "@services/product.service";
 
-const DashboardPage = async () => {
-  const data = await fetchProducts();
-  return <Table data={data} />;
+const Product = async () => {
+  const data = await fetchProductsListApi();
+  return <ProductList productList={data?.data?.products} />;
 };
 
-export default DashboardPage;
+export default Product;

@@ -1,8 +1,10 @@
-import "@/app/globals.css";
-import theme from "@/theme/theme";
+import "@app/globals.css";
+import "react-toastify/dist/ReactToastify.css";
+import theme from "@config/theme.config";
 import { ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import type { Metadata } from "next";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "Front-End Test",
@@ -18,7 +20,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          <ThemeProvider theme={theme}>
+            <ToastContainer />
+            {children}
+          </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
