@@ -8,7 +8,7 @@ import type { NextRequest } from "next/server";
  */
 export function middleware(request: NextRequest) {
   // List of protected routes
-  const protectedRoutes = ["/dashboard"];
+  const protectedRoutes = ["/product"];
   // List of public routes
   const publicRoutes = ["/"];
 
@@ -30,7 +30,7 @@ export function middleware(request: NextRequest) {
   if (publicRoutes.includes(pathname)) {
     if (token) {
       // Redirect to dashboard page if token is present
-      return NextResponse.redirect(new URL("/dashboard", request.url));
+      return NextResponse.redirect(new URL("/product", request.url));
     }
   }
 
@@ -40,5 +40,5 @@ export function middleware(request: NextRequest) {
 
 // Define which paths the middleware should be applied to
 export const config = {
-  matcher: ["/", "/dashboard"],
+  matcher: ["/", "/product"],
 };
